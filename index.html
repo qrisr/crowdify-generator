@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crowdfunding-Strategie Generator | Crowdify.net</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Crowdify Style */
+        .header {
+            background: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: '🚀';
+            margin-right: 8px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #e67e22;
+        }
+
+        .cta-nav {
+            background: #e67e22;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-nav:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section - Crowdify inspired */
+        .hero {
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* iFrame Section - Enhanced for Crowdify */
+        .iframe-section {
+            background: white;
+            margin: -40px auto 60px;
+            max-width: 1100px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .iframe-header {
+            background: #e67e22;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .iframe-header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .iframe-header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .iframe-container {
+            height: 800px;
+            border: none;
+            background: #f8f9fa;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Process Section - Crowdify Style */
+        .process {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .process-step {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            border-color: #e67e22;
+            box-shadow: 0 15px 35px rgba(230, 126, 34, 0.15);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: #e67e22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .process-step h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .process-step p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: #ecf0f1;
+            padding: 80px 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .benefit-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Target Audience */
+        .target-audience {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .audience-type {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #e67e22;
+        }
+
+        .audience-type h3 {
+            color: #e67e22;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #e67e22;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #e67e22;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #e67e22;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #e67e22;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            color: #bdc3c7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .iframe-section {
+                margin: -20px 10px 40px;
+                border-radius: 10px;
+            }
+            
+            .iframe-container {
+                height: 600px;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .process, .benefits, .target-audience, .cta-section, .testimonials {
+                padding: 60px 0;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">Crowdify</a>
+                <div class="nav-links">
+                    <a href="#wie-es-funktioniert">Wie es funktioniert</a>
+                    <a href="#vorteile">Vorteile</a>
+                    <a href="#zielgruppe">Für wen</a>
+                    <a href="#start" class="cta-nav">Jetzt starten</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1>Verwandle deine Leidenschaft in eine erfolgreiche Crowdfunding-Kampagne!</h1>
+                <p class="hero-subtitle">Hör auf zu raten – entwickle stattdessen eine Strategie, die Unterstützer begeistert und dir hilft, deine Finanzierungsziele zu erreichen.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Erfolgreiche Projekte</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">CHF 50M+</span>
+                        <span class="stat-label">Gesammelte Mittel</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">85%</span>
+                        <span class="stat-label">Erfolgsrate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- iFrame Section -->
+    <section class="iframe-section" id="start">
+        <div class="iframe-header">
+            <h2>🎯 Dein Crowdfunding-Strategie Generator</h2>
+            <p>Entwickle in wenigen Schritten eine maßgeschneiderte Strategie für dein Projekt</p>
+        </div>
+        <div class="iframe-container">
+            <iframe src="https://workflow.getmindpal.com/crowdify-ot3wky9nqcrr3t1j" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="wie-es-funktioniert">
+        <div class="container">
+            <h2 class="section-title">🚀 So funktioniert's</h2>
+            <p class="section-subtitle">In 6 einfachen Schritten zu deiner erfolgreichen Crowdfunding-Strategie</p>
+            
+            <div class="process-grid">
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">1</div>
+                    <h3>Entdecke Top-Ideen</h3>
+                    <p>Wir präsentieren dir 10 der besten Crowdfunding-Ideen als Inspiration für dein eigenes Projekt.</p>
+                </div>
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">2</div>
+                    <h3>Teile deine Vision</h3>
+                    <p>Erzähl uns von deinem Projekt und deinem großen Ziel. Je detaillierter, desto besser die Strategie.</p>
+                </div>
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">3</div>
+                    <h3>Wähle deine Strategie</h3>
+                    <p>Entscheide dich für den Crowdfunding-Ansatz, der am besten zu deiner Vision passt.</p>
+                </div>
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">4</div>
+                    <h3>Strategie generieren</h3>
+                    <p>Unsere KI erstellt eine maßgeschneiderte Crowdfunding-Strategie für dein Projekt.</p>
+                </div>
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">5</div>
+                    <h3>Zielgruppe definieren</h3>
+                    <p>Bestimme genau die Zielgruppe, die du mit deiner Kampagne erreichen willst.</p>
+                </div>
+                <div class="process-step fade-in-up">
+                    <div class="step-icon">6</div>
+                    <h3>Videoskript erstellen</h3>
+                    <p>Erhalte ein überzeugendes Skript für dein Kampagnenvideo, das Unterstützer mobilisiert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="vorteile">
+        <div class="container">
+            <h2 class="section-title">💫 Das bekommst du</h2>
+            <p class="section-subtitle">Alles was du für eine erfolgreiche Crowdfunding-Kampagne brauchst</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in-up">
+                    <span class="benefit-icon">📋</span>
+                    <h3>Kuratierte Ideenliste</h3>
+                    <p>Eine durchdachte Liste mit Top-Crowdfunding-Ideen zur Inspiration für dein eigenes Projekt.</p>
+                </div>
+                <div class="benefit-card fade-in-up">
+                    <span class="benefit-icon">🎯</span>
+                    <h3>Individuelle Strategie</h3>
+                    <p>Eine maßgeschneiderte Strategie, perfekt abgestimmt auf dein Projekt und deine Ziele.</p>
+                </div>
+                <div class="benefit-card fade-in-up">
+                    <span class="benefit-icon">👥</span>
+                    <h3>Glasklare Zielgruppe</h3>
+                    <p>Eine präzise definierte Zielgruppe, um die Reichweite deiner Kampagne zu maximieren.</p>
+                </div>
+                <div class="benefit-card fade-in-up">
+                    <span class="benefit-icon">🎬</span>
+                    <h3>Mitreißendes Videoskript</h3>
+                    <p>Ein überzeugendes Skript, das potenzielle Unterstützer begeistert und zum Mitmachen motiviert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="target-audience" id="zielgruppe">
+        <div class="container">
+            <h2 class="section-title">🎯 Ideal für</h2>
+            <p class="section-subtitle">Für alle, die ihre Crowdfunding-Kampagne professionell planen möchten</p>
+            
+            <div class="audience-grid">
+                <div class="audience-type fade-in-up">
+                    <h3>🚀 Entrepreneure</h3>
+                    <p>Gründer und Unternehmer, die innovative Produkte oder Dienstleistungen finanzieren möchten.</p>
+                </div>
+                <div class="audience-type fade-in-up">
+                    <h3>🎨 Kreative</h3>
+                    <p>Künstler, Designer und Kreative, die ihre Projekte und Ideen verwirklichen wollen.</p>
+                </div>
+                <div class="audience-type fade-in-up">
+                    <h3>💡 Innovatoren</h3>
+                    <p>Erfinder und Visionäre mit bahnbrechenden Ideen, die Unterstützung suchen.</p>
+                </div>
+                <div class="audience-type fade-in-up">
+                    <h3>🌱 Social Entrepreneurs</h3>
+                    <p>Soziale Unternehmer, die positive Veränderungen in der Gesellschaft bewirken möchten.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">💬 Was unsere Nutzer sagen</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial fade-in-up">
+                    <p class="testimonial-text">"Die Zusammenarbeit mit Crowdify war einfach super. Die Tools und Tipps erhöhen die Wahrscheinlichkeit des erfolgreichen Gelingens deutlich!"</p>
+                    <div class="testimonial-author">- Fabienne Brändli</div>
+                </div>
+                <div class="testimonial fade-in-up">
+                    <p class="testimonial-text">"Durch Crowdify konnten wir 40'000 Franken sammeln. Das ansprechende Interface und der tolle Support haben uns bestens unterstützt."</p>
+                    <div class="testimonial-author">- Vegane Gesellschaft Schweiz</div>
+                </div>
+                <div class="testimonial fade-in-up">
+                    <p class="testimonial-text">"Die Plattform ist sehr benutzerfreundlich und das Handbuch mit vielen Tipps hat mir enorm geholfen, mein Crowdfunding erfolgreich abzuschließen."</p>
+                    <div class="testimonial-author">- Bruno Matti</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content fade-in-up">
+                <h2 class="cta-title">Bereit loszulegen?</h2>
+                <p class="cta-description">Verwirkliche deinen Traum mit einer starken Crowdfunding-Strategie!</p>
+                <a href="#start" class="cta-button">Jetzt Strategie entwickeln</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Crowdify</h3>
+                    <a href="#">Über uns</a>
+                    <a href="#">Wie es funktioniert</a>
+                    <a href="#">Erfolgsgeschichten</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#">Hilfe Center</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Kontakt</a>
+                    <a href="#">Community</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Rechtliches</h3>
+                    <a href="#">AGB</a>
+                    <a href="#">Datenschutz</a>
+                    <a href="#">Impressum</a>
+                    <a href="#">Gebühren</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Crowdify.net - Crowdfunding für die Schweiz und weltweit</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add loading state to iframe
+        window.addEventListener('load', function() {
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                iframe.onload = function() {
+                    console.log('Crowdfunding-Strategie Tool erfolgreich geladen');
+                };
+            }
+        });
+    </script>
+</body>
+</html>
